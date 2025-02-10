@@ -61,6 +61,7 @@ Install SonarQube scanner plugin in jenkins and configure sonarqube in Jenkins
 ![image](https://github.com/user-attachments/assets/1b4a214b-20e0-4c1e-bb79-407a5458e9fb)
 ![image](https://github.com/user-attachments/assets/26ee7c2f-7907-4f74-b024-53fbc9d357be)
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Create maven job in jenkins and integrate sonarqube for maven job
 -
@@ -93,3 +94,12 @@ Create maven job in jenkins and integrate sonarqube for maven job
 ![image](https://github.com/user-attachments/assets/56ba9743-e43b-4889-b0ba-3968e96bf8e9)
 ![image](https://github.com/user-attachments/assets/0e9d3902-fe9d-48d0-b0cb-fae31040ca25)
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create pipeline and take code from jenkinsfile in GitHub and then do code analysis
+-
+- Define pom.xml and jenkinsfile in GitHub
+- In pom.xml, define dependencies such as project name (devops-app), define some plugins inside it. Main plugin is sonar-maven-plugin with version. Inside profile define sonar-host-url inside properties tag
+
+![image](https://github.com/user-attachments/assets/51b783c2-c9f5-46c4-b56e-6c399136dd48)
+![image](https://github.com/user-attachments/assets/bed908fe-9871-49ec-af24-48850615e75f)
