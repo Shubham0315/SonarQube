@@ -60,6 +60,8 @@ Install SonarQube scanner plugin in jenkins and configure sonarqube in Jenkins
 
 ![image](https://github.com/user-attachments/assets/1b4a214b-20e0-4c1e-bb79-407a5458e9fb)
 ![image](https://github.com/user-attachments/assets/26ee7c2f-7907-4f74-b024-53fbc9d357be)
+![image](https://github.com/user-attachments/assets/89ccd59d-0e04-452c-8d5e-fc36905f555c)
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
