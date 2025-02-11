@@ -105,3 +105,19 @@ Create pipeline and take code from jenkinsfile in GitHub and then do code analys
 
 ![image](https://github.com/user-attachments/assets/51b783c2-c9f5-46c4-b56e-6c399136dd48)
 ![image](https://github.com/user-attachments/assets/bed908fe-9871-49ec-af24-48850615e75f)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Another way to create pipeline and use sonarqube for code analysis
+-
+- Create pipeline project. Define github project URL in general section
+
+![image](https://github.com/user-attachments/assets/bcd54919-2460-4cb7-8d8c-18807da6ee5d)
+
+- Now in the pipeline scetion, select definition as "pipeline script from SCM", select SCM as GIT, provide branch, URL details
+
+![image](https://github.com/user-attachments/assets/8cb6c2c0-5bcc-42b0-829f-ff0e2f379606)
+
+- In script path, provide path of jenkinsfile. If jenkinsfile is not present in root, provide appropriate relative path. In jenkinsfile we write pipeline script
+
+![image](https://github.com/user-attachments/assets/a8e3d7c6-5079-41e4-b627-272feb378182)
