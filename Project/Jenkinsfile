@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    tools {
+        jdk "jdk11"
+        maven "maven3"
+    }
+
+    stages {
+        stage('Git checkout') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/Shubham0315/SonarQube.git'
+            }
+        }
+        stage('Sonar Analysis') {
+            steps {
+                sh 'mvn clean package'\
+                sh ''' mvn sonar:sonar -Dsonar.url=http://localhost:9000/ -Dsonar.login=squ_bdet217457345736437264 -Dsonar.projectName=SonarQube \
+                    -Dsonar.java.binaries=. \
+                    -Dsonar.projectKey=SonarQube '''
+            }
+        }
+    }
+}
