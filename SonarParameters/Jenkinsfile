@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    
+    environment {
+        SONAR_HOST_URL = 'http://localhost:9000'
+        SONAR_AUTH_TOKEN = credentials('sonar-token-id')                #Define environment variables to use in sonar parameters
+    }
+
+
+
+    stages {
+        stage('Checkout code') {
+            steps {
+                git 'https://github.com/Shubham0315/SonarQube'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh ''' 
+                    mvn sonar:sonar 
+                    -Dsonar.projectKey=SonarQube 
+                    -Dsonar.host.url=$SONAR_HOST_URL
+                    -Dsonar.login=$SONAR_AUTH_TOKEN
+                    '''
+                }
+            }
+        }
+        
+        
+    }
+}
