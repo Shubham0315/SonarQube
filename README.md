@@ -7,13 +7,39 @@
 - Fix vulnerabilities that compromise your application
 - Makes sure your codebase is clean and maintainable to increase developer velocity
 
+SonarQube does 2 tasks :
+1. Code Coverage
+- When sonarqube generates report on code coverage, it generates in percentage. Means x% of our source code is run or tested. In most companies they require code coverage of at least 80% should be tested.
+
+2. Code Quality Check
+- When we say our source code has multiple issues, it can have bugs, vulnerabilities, code smells. All of these should be minimal in our source code.
+- Bugs happen due to wrong coding (improper code)
+- Vulnerability is a section of our csource code whic is open to attack even if it is working but can be bypassed.
+- Code smell is section of source code which is poorly written and creates confusion in code.
+
+Install and Setup Sonarqube
+- Create sonarqube server using docker installed in our machine(recommended for linux ubuntu)
+- Command :- **docker run -d --name sonar -p 9000:9000  sonarqube:lts-community**        #donwloads sonarqube lts version image
+- To login sonarqube :- **http://localhost:9000**        #localhost can be changed with jenkins URL
+- **Quality Profiles**, we can have default profiles set for respective langauges. We can also create custom profiles for us
+- If we need to install profile for some langauge, administration - marketplace - search and download
+
+![image](https://github.com/user-attachments/assets/786506c6-1391-4fb4-8241-c43f602f380e)
+
+- In administartion - syatem, we can check health of our sonar server
+- **Quality gates** :- Here we can set certain conditions. We can also create conditions as per need
+
+![image](https://github.com/user-attachments/assets/8fca06f0-25ce-4646-92c5-bbb8cfb91321)
+
+- **Rules** :- We've all the rules for our projects acc to langauge.
+
 Features of SonarQube
 -
 - Open source
 - Static Code coverage :- Indentifies potential issues without executing code
 - Enhance your workflow with Continuous code quality and code security
 - Compatible with various programming languages
-- Detects redundancy in code and test cases gnerating reports after it
+- Detects redundancy in code and test cases generating reports after it
 - Gives comparison between current and past report
 - Easily integrates with build tools like maven, ant, gradle
 - Integration with CICD pipelines :- Works with Jenkins, GitHub actions, GitLab CICD
@@ -124,4 +150,6 @@ Another way to create pipeline and use sonarqube for code analysis
 ![image](https://github.com/user-attachments/assets/248972ec-8be5-46a0-bbf5-1fd5b04161e2)
 
 - Now we can Build this jenkins pipeline
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
