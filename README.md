@@ -118,6 +118,10 @@ Another way to create pipeline and use sonarqube for code analysis
 
 ![image](https://github.com/user-attachments/assets/8cb6c2c0-5bcc-42b0-829f-ff0e2f379606)
 
-- In script path, provide path of jenkinsfile. If jenkinsfile is not present in root, provide appropriate relative path. In jenkinsfile we write pipeline script
+- In script path, provide path of jenkinsfile. If jenkinsfile is not present in root, provide appropriate relative path. In jenkinsfile we write pipeline script. Whatever name we provide in Now Manage jenkins - System - SonarQube servers - Add server while configuring sonar in jenkins, we've to provide the same in our pipeline script
 
-![image](https://github.com/user-attachments/assets/a8e3d7c6-5079-41e4-b627-272feb378182)
+![image](https://github.com/user-attachments/assets/8aefbe91-a3b7-4a5e-bc52-8e83ce8044fb)
+![image](https://github.com/user-attachments/assets/248972ec-8be5-46a0-bbf5-1fd5b04161e2)
+
+- Now we can Build this jenkins pipeline
+
