@@ -192,4 +192,43 @@ Project :- CICD Pipeline using Sonarqube
 
 ![image](https://github.com/user-attachments/assets/656b6cf1-e12e-4f93-b8f1-549f4ce3fd9f)
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Explain sonarqube parameters
+-
+- In jenkins pipelkines SonarQube parameters are used to configure and execute sonar analysis for code quality checks. These parameters are typically passed to **sonar-scanner** or **SonarQube Scanner for Jenkins** plugin
+
+1. Project Information
+- sonar.projectKey :- Unique identifier for project
+- sonar.projectName
+- sonar.projectversion
+
+2. Source Code Configuration
+- sonar.sources :- Comma separated paths for source code directories
+- sonar.exclusions :- files/directories to exclude from analysis
+- sonar.language :- language of project
+
+3. Code coverage and testing
+- sonar.coverage.exclusions :- Paths to exclude from code coverage
+- sonar.test.exclusions :- Paths to exclude from test analysis
+
+4. Branch and Pull requests analysis
+- sonar.branch.name
+- sonar.pullrequest.key :- Pull request identifier
+- sonar.pullrequest.branch :- Source branch of PR
+
+5. Authentication and Server config
+- sonar.host.url :- URL of SQ server
+- sonar.login :- auth token or username
+- sonar.password
+
+6. Build and SCM config
+- sonar.scm.provider :- SCM tool
+- sonar.gitlab.project_id :- GitLab project ID
+- sonar.github.repository :- GitHub repo name
+
+Below is the example of how to use sonar parameters. Also includes use of custom env variables to use 
+
+![image](https://github.com/user-attachments/assets/28a7f1e8-3ff8-4d86-9d0f-15a99576d332)
+
 
