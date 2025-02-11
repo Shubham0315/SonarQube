@@ -155,3 +155,41 @@ Another way to create pipeline and use sonarqube for code analysis
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+Project :- CICD Pipeline using Sonarqube
+-
+- Install sonar and JDK plugin
+- Manage jenkins - Global tool config - JDK add (11) (auto install)
+
+![image](https://github.com/user-attachments/assets/e6d0c639-2a31-4263-8a60-295ae9d01761)
+
+- Go to Manage jenkins - Global tool config - Maven - version - Apply
+  - Now all the tools JDK, Maven and Sonar are configured
+ 
+- Now create a new pipeline named :- sonar-analysis. Select log rotation
+
+![image](https://github.com/user-attachments/assets/f47d3f42-0764-42a9-855b-1f5204c1272c)
+![image](https://github.com/user-attachments/assets/9b3d2093-ee4c-4f36-8538-0b7066fb5214)
+
+- Create sample pipeline in pipeline section "Hello Wold" option/ Define tools here
+
+![image](https://github.com/user-attachments/assets/9a44de46-4d11-4cad-bc5c-68104a21a5d2)
+
+- Now inside stages, provide git checkout stage URL. Go to pipeline syntax - select git - provide URL - Generate pipeline script. Copy and paste in pipeline code
+
+![image](https://github.com/user-attachments/assets/bb30f2d6-ba1c-4f76-a361-3be8c832fc02)
+![image](https://github.com/user-attachments/assets/2baabf79-f7e5-47c7-9b50-10b2b41b7954)
+
+- Now next stage is sonar analysis. For that we've mvn clean package to build app and generate artifact
+  - Now we can write sonar analysis command. In which we define sonar URL, for authentication we provide token. (Administration - security - token - generate). Also provide project name , java binaries (in root dir so .) and project key similar to project name
+
+![image](https://github.com/user-attachments/assets/7d720a55-f6f3-4e3b-a615-594f7b4e2373)
+
+- Now when we run the pipeline, it will unpack the jdk as we're building pipeline fopr first time. Now when we go to sonarqube and check the analysis of project, it will show like below
+
+![image](https://github.com/user-attachments/assets/c07c0cfd-bf7d-417f-8257-4e14ad6be3c2)
+
+- We can also check issues details. Here we can see what is blocker, critical, major, minor
+
+![image](https://github.com/user-attachments/assets/656b6cf1-e12e-4f93-b8f1-549f4ce3fd9f)
+
+
