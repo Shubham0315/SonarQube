@@ -33,6 +33,8 @@ Install and Setup Sonarqube
 
 - **Rules** :- We've all the rules for our projects acc to langauge.
 
+![image](https://github.com/user-attachments/assets/be05b2de-bdbf-456e-bb3e-a79d708f2ff6)
+
 Features of SonarQube
 -
 - Open source
