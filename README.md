@@ -232,3 +232,165 @@ Below is the example of how to use sonar parameters. Also includes use of custom
 ![image](https://github.com/user-attachments/assets/28a7f1e8-3ff8-4d86-9d0f-15a99576d332)
 
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Configuring SonarQube for high availability and scalability
+-
+- Configuring SQ for HA and scalability involves setting up multiple components to esnure that system remains available even if one component fails and it can handle increased load as nummber of users or projects grows
+
+- High availability SQ setup includes:-
+  - Load balancer to distribute traffic such as HAProxy, ELB, Nginx
+  - Multiple SQ app nodes
+  - Dedicated DB server like SQL/PostgreSQL
+  - Shared storage to maintain consistent config and data between nodes
+  - Elastic cluster setup
+  - Sonarqube app node configuration in sonar.properties file
+  - Monitoring and scaling
+  - Backup and DR
+ 
+  ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Automating quality gate enforcement in CI/CD
+-
+- Automating quality gate enforcements in CICD ensures code changes meet predefined quality standards before they are merged or deployed. SQ integrates seamlessly into CICD pipelines to enforce quality gates, preventing builds from passing if they dont meet set thresholds for code coverage, bugs, vulnerabiloties, code smells.
+
+- Quality gate is a set of conditions that code must meet to be considered prod-ready. It is to set up conditions to fail the build if quality gate fails and notify team on failure.
+
+- Prerequisites are SQ server, SQ Scanner (ON CICD runner/agent), SQ token, Jnekins for CICD
+
+- To setup quality gates - SQ - Administration - Quality Gates (Coverage 80%, No new critical bugs or vulnerabilities, Maintainability Rating = A)
+
+- We can also integrate SQ with email or slack for notifications on failure
+  - In jenkins - Email extansion plugin
+ 
+- Best practices :-
+  - Fail Fast :- Enforce QG early in pipeline to save time and resources
+  - Branch Analysis
+  - Incremental analysis to focus on new code to maintain legacy code
+  - For security use env variables
+ 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Configuring language-specific analyzers in SonarQube
+-
+- Configuring language specific analyzers in SQ enhances code analysis by applying relevant rules and metrics tailored to programming langauges used in our projects. This ensures more accurate quality gates, better detection of bugs, smells and overall improved quality code
+- They parse the code and detect language specific issues. Apply rules in quality profiles and generate metrics like code coverage, duplications (Java, C#, C++, Python, JS, XML)
+- Prerequisites are SQ server, SQ scanner or language specific scanner (Maven/gradle), build env for same (JDK, Nodejs)
+
+- To install and update
+  - Administration - Marketplace - Search SonarGo(Required plugin) - Install and Restart SQ
+ 
+- Configure Language-specific settings
+  - Administration - General settings - Language select - Configure (just like properties file in Gitlab)
+ 
+- Set up quality profile
+  - Quality Profiles - Language select - Activate/deactivate rules - Create custom profiles
+ 
+- Integrate Language specific analyzers with pipelines
+
+  ![image](https://github.com/user-attachments/assets/fc61ed89-0ceb-4263-9cd5-50da8a7ecb75)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Difference between quality gates and quality profiles  in sonarqube
+-
+- Quality gates determine whether the code meets defined quality standards to pass or fail in analysis. They are evaluative and used to enforce quality rules before merging or deploying code.
+  - They provide pass fail criteria based on conditions (Code coverage 80%, No bugs/vulnerabilities)
+  - Applicable to new code or entire codebase
+  - If quality gates fail, directly affects pipeline blocking deployments
+ 
+![image](https://github.com/user-attachments/assets/c88343c0-52b1-41f8-a28a-ea1c67a70582)
+
+ 
+- Quality profiles define set of rules that SQ uses to analyse source code. These are kind of rules sets for each language.
+  - Rules definition :- determine which rules are enabled or disabled during analysis
+  - Language specific
+  - We can create custom profiles by enabling and disabling rules
+  - SQ provides default profiles which can be customized as well
+  - SQ UI :- Quality profiles - Configure
+ 
+![image](https://github.com/user-attachments/assets/6aa5e386-6116-44bd-b25f-0f2292db9d2b)
+
+- How Profiles and gates work together?
+  - Quality profiles analyze source code and generate issues bases on rules
+  - QG then evaluates these issues against defined conditions. If conditions are met QG pass, if fail blocks pipeline
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+
+What are common issues when integrating SonarQube with CI/CD pipelines?
+-
+
+1. Authentication and Authorization Issues
+- Invalid auth tokens
+- Insufficient permissions for SQ account to create projects or update analysis results
+- We can use Personal access tokens with least privilege, store tokens securely as env variables, regularly update tokens
+
+2. Compatibility and Version mismatch
+- SQ version mismatch, Plugin/build tool incompatible
+- We can regularly update SQand its plugins
+
+3. Network and connectivity issues
+-  Firewall restrictions :- As CICD agents cannot reach SQ server due to firewall issues
+-  Incorrect proxy configurations
+- Ensure network rules allow traffic on SQ port 9000, configure proxy settings in SonarScanner or CICD env, use correct DNS enteries for connectivity
+
+4. Incorrect SonarScanner Configuration
+- Wrong project key/name :- Leads to project duplications or overwriting existing projects
+- Misconfigured source or tests path
+- For this we can define sonar.projectKey, sonar.sources, sonar.tests in properties files
+
+5. Insufficient Resource Allocation
+- Out of memory errors
+- Slow analysis or timeouts
+
+![image](https://github.com/user-attachments/assets/f66879e6-bb14-4956-b758-6de78f6dae3c)
+
+6. Multi language project issues
+- Incorrect langauge detection as SQ misidentifies primary language, leading to incomplete analysis
+- Multi langauge projects struggle with aggregating coverage reports
+- For this we can explicitly define languages and sources in properties file
+
+![image](https://github.com/user-attachments/assets/89297633-d792-4ca6-91c5-63b905de3f05)
+
+7. Security and Access Control issues
+- Unauthorized access or incorrect permissions on SQ projects
+- We can use token based authentication with minimal permissions and store tokens securely using CICD secrets management
+
+* To troubleshoot :- Check logs (web.log, ce.log, es.log), enable debug mode by setting sonar.verbose=true, implement retry logic in CICD to handle network issues
+* Start with efault quality profiles, incremental quality gate enforcement, regular updates
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+How do you debug SonarQube scanner failures?
+-
+- Debugging SQ Scanner failures requires systematic approach to identify and resolve issues effectively
+
+1. Enable Debug Logging
+- Used to get detailed error messages. To check ERROR, WARN or EXCEPTION keywork in logs
+- To enable debug mode for maven :- **mvn sonar:sonar -X -Dsonar.verbose=true**
+
+2. Check SQ Server Logs
+- Logs directory :- $SONARQUBE_HOME/logs
+- web.log, ce.log, es.log, sonar.log
+- Common issues are :- auth errors, network connectivity, elasticsearch errors
+- Command :- **tail -f /opt/sonarqube/logs/ce.log**
+
+3. Validate Config settings
+- sonar.projectKey, sonar.sources need to be correctly set
+- Common issues are incorrect project key, Invalid HOST URL, missing auth token
+
+4. Network connectivity and proxy settings
+- Test network connectivity, check proxy settings
+
+5. Verify authentication and permissions
+- Invalid token, lack of permissions
+
+6. Compatibility and version mismatch
+- Ensure compatibility between SQ, SonarScanner and plugins
+
+7. Common build tool issues
+- Incorrect plugin version or missing sonar.login
+- mvn sonar:sonar -Dsonar.login=your-token-here
+
+** Clear cache :- sonar.scanner -X --cache-clear
