@@ -205,4 +205,56 @@ What’s the difference between issues marked as “New Code” vs “Overall Co
 
 How do you enforce quality gates to fail builds in Jenkins?
 -
-- We can enforce Quality Gates 
+- We can enforce Quality Gates in Jenkins using "waitForQualityGate" step in jenkins pipeline
+- This will pause build until SQ returns quality gate status. It fails the build if QG noyt passed
+
+![image](https://github.com/user-attachments/assets/c8705dfb-f4d0-4519-9de8-252c0067d311)
+
+- waitForQualityGate
+  - Waits for SQ to process analysis
+  - fetches QG status
+  - If its not passed, build will fail
+
+---------------------------------------------------------------------------------
+
+How would you troubleshoot a failed SonarQube analysis?
+-
+- Troubleshooting failed SQ analysis involves checking logs, configs, connectivity to identify what went wrong
+
+- Check SonarScanner output in Jenkins
+  - Look for keywords like ERROR, WARNING, FAILURE or analysis failure
+- Validate sonar-project.properties
+- Check authentication token
+- Check SQ server connectivity
+- Check build tool integration
+
+---------------------------------------------------------------------------------
+
+What are the steps to secure SonarQube?
+- 
+- Securing SQ is critical, especially if its exposed to our internal network or internet
+- It contains sensitive code and analysis data that could be exploited if not properly secured
+
+- Use strong authentication
+- Use token instead of passwords in CICD
+- Secure tokens and secrets, rotate them regularly
+- Keep SQ updated
+- Monitor activity and logs
+
+---------------------------------------------------------------------------------
+
+How do you create custom rules in SonarQube?
+-
+- Creating custom rules in SQ allows to enforce organization-specific coding standards that arent covered by defult rules
+- The steps vary depending on language we're targeting
+
+---------------------------------------------------------------------------------
+
+What are the best practices for maintaining SonarQube in production?
+-
+- Use right SQ edition and version
+- Use robust external database
+- Secure SQ access
+- Monitor health and performance using prometheus and grafana
+- Clean up old analysis data
+- Manage plugin carefully
