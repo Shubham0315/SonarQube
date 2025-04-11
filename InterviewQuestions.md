@@ -62,4 +62,72 @@ How do you integrate SonarQube with Jenkins?
 
 What is a SonarQube scanner?
 -
+- SQ Scanner is a command line tool or plugin that is used to analyse source code and send results to SQ server for inspection
+- It is bridge between codebase and SQ dashboard
+
+- It is used to collect ans submit code analysis results, test reports, code metrics to dashboard
+
+- Scanner for maven
+  - Uses sonar:sonar goal
+  - Command :- mvn clean verify sonar:sonar
+ 
+---------------------------------------------------------------------------------  
+
+Explain sonar-project.properties file
 - 
+- It is a config file used by Sonar Scanner to define project specific analysis settings
+- It tells SQ what to analyse, where to find it, how to handle it
+
+- It contains :-
+  - sonar.projectKey :- Unique key to identify project in SQ
+  - sonar.projectName :- Human readable project name
+  - sonar-sources :- paths of source code
+  - sonar.exclusions :- files/folders to exclude from analysis
+  - sonar.login :- auth token
+ 
+---------------------------------------------------------------------------------
+
+What are some default rules or standards SonarQube uses for code quality checks?
+-
+- SQ has set of default rule sets and quality standards tailored to each programming language.
+- These rules are grouped into 5 issue types :- Bugs, Vulnerabilities, Code smells, security hotspots and Coverage
+
+- Language specific rules
+- Built in security rules
+- Maintainability and readability rules (code smells)
+- Coverage and test rules
+- Reliability rules (bugs)
+
+---------------------------------------------------------------------------------
+
+Where does SonarQube store its data?
+-
+- SQ stores data in 2 main places
+- Relational DBs (RDBMS) for persistent data
+  - Project metadata
+  - Code analysis results
+  - Quality profiles and gates
+  - Plugin configs
+ 
+- File system
+  - $SONARQUBE_HOME/data
+  - $SONARQUBE_HOME/conf/sonar.properties :- stores config like DB creds, ports
+  - $SONARQUBE_HOME/logs :- running logs for troubleshooting
+ 
+---------------------------------------------------------------------------------
+
+What is a “technical debt” in SonarQube and how is it calculated?
+-
+- It refers to estimated time required to fix all maintainability issues (like code smells) in your codebase.
+- Its a way to quantify how much work is needed to make our code clean and maintainable
+
+- It us shown in our project dashboard
+- Maintainability rating (A-E) is based on technical debt ratio
+
+- Formula :- Technical debt = (remediation cost / development cose ) * 100
+  - Remediation cost :- time to fix all maintainability issues
+  - Development cost :- estimated time to write code base
+ 
+![image](https://github.com/user-attachments/assets/21845e8f-27fd-4a61-ae45-383d4395a732)
+
+---------------------------------------------------------------------------------
