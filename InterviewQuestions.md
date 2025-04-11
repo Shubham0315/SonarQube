@@ -131,3 +131,78 @@ What is a “technical debt” in SonarQube and how is it calculated?
 ![image](https://github.com/user-attachments/assets/21845e8f-27fd-4a61-ae45-383d4395a732)
 
 ---------------------------------------------------------------------------------
+
+How do you configure SonarQube analysis in a Jenkinsfile?
+- 
+- We can configure SQ analysis in Jenkins declarative pipeline using SQ scanner plugin along with your SQ server and token
+
+- Pre-requisites
+  - Install plugins :- SQ scanner for jenkins
+  - Configure SQ in jenkins
+  - Configure SonarScanner
+
+![image](https://github.com/user-attachments/assets/0a37fafa-8a63-4068-87b3-e059aca635c6)
+
+- withSonarQubeEnv('SonarServer') :- injects SQ server env variables
+- sonar.login=$SONAR_TOKEN :- authenticate scanner securely using jenkins creds
+
+---------------------------------------------------------------------------------
+
+Explain the significance of sonar.projectKey, sonar.host.url, and sonar.login in the sonar-scanner.properties file.
+-
+- These properties are essential config settings that tell SonarScanner how to identify project, where to send all analysis data and how to authenticate request
+
+- sonar.projectKey (project ID)
+  - Uniquely identify project on SQ server.
+  - Used to store and retrieve all related metrics, bugs, code smells
+  - Command :- **sonar.projectKey=my-cool-app**
+  - It is for SQ dashboard
+ 
+- sonar.host.url (Project URL)
+  - Specifies URL of SQ server
+  - Directs server where to send analysis data
+  - Command :- **sonar.host.url=http://localhost:9000**
+ 
+- sonar.login (token)
+  - Provides authentication token to authorize scanner
+  - Ensures secure submission of analysis data
+  - Command :- **sonar.login=token**
+ 
+---------------------------------------------------------------------------------
+
+What are issues, rules, and profiles in SonarQube?
+-
+- Rule
+  - Rule is static code analysis check that defines coding standards or best practice
+  - Rules means what to check
+  - SQ has many built in rules for each language
+
+- Issues
+  - Issue is violation of rule found in code
+  - Created when code does not comply with rule during analysis
+  - Issues can be severity (blocker, critical, minor), Type (Bug,smell)
+
+- Quality Profiles
+  - Profile is collection of activated rules for specific language
+  - Determines which rules to apply when analysing project
+ 
+- Quality profiles --> Activates rules --> Rules are applied to code --> Vialations to rules create issues
+
+---------------------------------------------------------------------------------
+
+What’s the difference between issues marked as “New Code” vs “Overall Code”?
+-
+- Overall Code
+  - Refers to all the code in project
+  - SQ analyses entire codebase and flags all issues (new and old)
+ 
+- New Code
+  - Referes only to code added or changed since a specific "New code period"
+  - Focuses on recent contributions making quality improvement more manageable
+  - Issues in new code are evaluated by Quality Gates
+ 
+---------------------------------------------------------------------------------
+
+How do you enforce quality gates to fail builds in Jenkins?
+-
+- We can enforce Quality Gates 
